@@ -12,10 +12,21 @@ export default function App() {
     })();
   },[]);
 
+  function handleFavorite(id) {
+    const newRepositories = repositories.map(repo => {
+      return repo.id === id ? {...repo, favorite: !repo.favorite} : repo;
+    });
+    setRepositories(newRepositories);
+  }
+
   return (
     <ul>
       {repositories.map(repo => (
-        <li key={repo.id}>{repo.name}</li>
+        <li key={repo.id}>
+          {repo.name}
+          {repo.favorite && <span>(Favorited)</span>}
+          <button onClick={() => handleFavorite(repo.id)}>Favorite</button>
+        </li>
       ))}
     </ul>
   ); 
